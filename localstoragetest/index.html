@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LocalStorage Test</title>
+</head>
+<body>
+    <span>You have been here </span><span id="visit-times">##NOT LOADED##</span><span> time(s).</span>
+    <p>you entered in the access code so you can view this page!</p>
+    <script>
+        var numTimes = localStorage.getItem("visitsCount");
+        console.log(numTimes);
+        if(numTimes == null) {
+            numTimes = 0;
+            console.log("First:",numTimes);
+        } else {
+            numTimes = parseInt(numTimes, 10);
+            console.log("Second:",numTimes);
+        }
+        numTimes++;
+        console.log("Num++",numTimes);
+
+        localStorage.setItem("visitsCount", (numTimes).toString(10))
+        
+        // localStorage.setItem('myCatt', 123);
+
+        // var check = localStorage.getItem('myCatt');
+        // console.log(check);
+        
+
+        document.getElementById("visit-times").textContent = numTimes.toString(10);
+    </script>
+</body>
+</html>

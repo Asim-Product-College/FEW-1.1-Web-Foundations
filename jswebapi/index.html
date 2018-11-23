@@ -1,0 +1,120 @@
+<html>
+<head>
+ <title>The Position object</title>
+ <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <main>
+        <h1 class="title">Welcome to my app that does many things!</h1>
+        <div id="container">
+            <div id="location_section">
+                <h2>Where Are You Now</h2>
+            </div>
+            <form id="upload-form" name="uploadForm">
+                    <h2>File Spec Detect</h2>
+                    <p><input id="uploadInput" type="file" name="myFiles" onchange="updateSize();" multiple> selected files: <span id="fileNum">0</span>; total size: <span id="fileSize">0</span></p>
+                    <p><input type="submit" value="Send file"></p>
+            </form> 
+        </div>
+    </main>
+    <style>
+        html {
+            background-color: lightcoral;
+        }
+        .title {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        #container {
+            display: flex;
+            justify-content: center;
+        }
+        #container > * {
+            margin: 10px 20px;
+            padding: 15px 23px;
+            border-radius: 10px;
+        }
+        #location_section {
+            float: left;
+            background-color: antiquewhite;
+            display: flex;
+            flex-direction: column;
+        }
+        .label {
+            font-weight: bolder;
+        }
+        #upload-form {
+            float: right;
+            background-color: antiquewhite;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+    <script>
+        // const longitude = document.getElementById('longitude');
+        // const latitude = document.getElementById('latitude');
+        // const current_loc = document.getElementById('current_loc');
+        let location_section = document.getElementById("location_section");
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        };
+
+        function success(pos) {
+            var crd = pos.coords;
+            // container.innerHTML += html;
+            // current_loc.innerHTML = "Your current positions is: " + str(latitude_val);
+            // latitude.innerHTML = latitude_val;
+            // longitude.innerHTML = longitude_val;
+            
+            // console.log(`Latitude : ${crd.latitude}`);
+            // console.log(`Longitude: ${crd.longitude}`);
+            // console.log(`More or less ${crd.accuracy} meters.`);
+            
+            
+            var locationJSONDataLink = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+`${crd.latitude}`+","+ `${crd.longitude}`+"&key=AIzaSyCQrSXUXzlAvVlmc34-dpcOSFvkQc5ZOVE";
+            console.log(locationJSONDataLink);
+            
+            axios.get(locationJSONDataLink, {}).then(response => {
+                let data = response.data;
+                const latitude_val = crd.latitude;
+                console.log(latitude_val);
+                const longitude_val= crd.longitude;
+                console.log(longitude_val);
+                const neighborhood = data.results[0].address_components[3]['long_name'];
+                console.log(neighborhood);
+                var html = `
+                    <p><span class="label">Current Coordinates:</span><br> ${latitude_val}, ${longitude_val}</p>
+                    <p><span class="label">Neighborhood:</span><br> ${neighborhood}</p>
+                `;
+            
+            location_section.insertAdjacentHTML( 'beforeend', html );
+            });
+        }
+
+        function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+        }
+
+        navigator.geolocation.getCurrentPosition(success, error, options);
+        function updateSize() {
+            var nBytes = 0,
+                oFiles = document.getElementById("uploadInput").files,
+                nFiles = oFiles.length;
+            for (var nFileId = 0; nFileId < nFiles; nFileId++) {
+                nBytes += oFiles[nFileId].size;
+            }
+            var sOutput = nBytes + " bytes";
+            // optional code for multiples approximation
+            for (var aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"], nMultiple = 0, nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
+                sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple] + " (" + nBytes + " bytes)";
+            }
+            // end of optional code
+            document.getElementById("fileNum").innerHTML = nFiles;
+            document.getElementById("fileSize").innerHTML = sOutput;
+        }
+    </script>
+</body>
+</html>

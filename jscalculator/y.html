@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Tip Calculator</title>
+  </head>
+  <body>
+    <!-- html elements -->
+    <p>
+      <label for="people"># Of People?</label>
+      <input id="people" type="number">
+    </p>
+    <p>
+      <label for="amount">Bill</label>
+      <input id="amount" type="number">
+    </p>
+
+    <p>
+      <label for="tip">Tip %</label>
+      <input id="tip" type="number">
+    </p>
+
+
+    <button id="calculate">Calculate</button>
+
+    <p>
+      <span>Tip:</span>
+      <p id="new-tip">0.00</p>
+    </p>
+
+    <p>
+      <span>Total:</span>
+      <span id="total">0.00</span>
+    </p>
+
+    <!-- Per Person -->
+    <h1>Per Person</h1>
+    <p>
+      <span>Tip: </span>
+      <p id="per-tip">0.00</p>
+    </p>
+    <span>Total: </span>
+    <p id="per-total">0.00</p>
+    </p>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+  </body>
+</html>

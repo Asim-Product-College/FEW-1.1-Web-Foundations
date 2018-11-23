@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 150px; }
+  .container .calc {
+    align-items: flex-start;
+    border: 3px solid;
+    padding: 1em; }
+  .container .calc > * {
+    display: block;
+    width: 100%; }
+  .container label {
+    font-size: 12px; }
+  .container input {
+    padding: 3px 5px;
+    border-radius: 2px;
+    border: 0.5px solid;
+    text-align: center; }
+  .container .tip, .container .total {
+    display: flex;
+    justify-content: space-between; }
+
+/*# sourceMappingURL=styles.css.map */

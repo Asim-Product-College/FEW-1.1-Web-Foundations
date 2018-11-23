@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    .calc {
+        align-items: flex-start;
+        // border
+        border: 3px solid;
+        padding: 1em;
+    }
+    .calc > * {
+        display: block;
+        width: 100%;
+    }
+    label {
+        font-size: 12px;
+    }
+    input {
+        padding: 3px 5px;
+        border-radius: 2px;
+        border: 0.5px solid;
+        text-align: center;
+
+    }
+    .tip, .total {
+        display: flex;
+        justify-content: space-between;   
+    }
+}
